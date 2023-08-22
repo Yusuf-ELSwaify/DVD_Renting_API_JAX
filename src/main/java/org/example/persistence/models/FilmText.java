@@ -1,7 +1,9 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
+@ToString
 @Entity
 @Table(name = "film_text")
 public class FilmText {

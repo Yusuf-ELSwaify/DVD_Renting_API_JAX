@@ -1,10 +1,11 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-
+@ToString
 @Entity
 @Table(name = "payment")
 public class Payment {

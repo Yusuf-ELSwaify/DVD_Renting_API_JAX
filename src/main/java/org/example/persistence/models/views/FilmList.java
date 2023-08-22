@@ -1,9 +1,7 @@
 package org.example.persistence.models.views;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
 import java.math.BigDecimal;
@@ -11,10 +9,13 @@ import java.math.BigDecimal;
 /**
  * Mapping for DB view
  */
+@ToString
 @Entity
 @Immutable
 @Table(name = "film_list")
 public class FilmList {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "FID", columnDefinition = "smallint UNSIGNED")
 	private Integer fid;
 

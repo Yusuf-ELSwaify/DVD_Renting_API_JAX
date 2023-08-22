@@ -2,11 +2,12 @@ package org.example.persistence.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.Objects;
-
+@ToString
 @Embeddable
 public class FilmActorId implements Serializable {
 	private static final long serialVersionUID = 7893568610663192166L;

@@ -1,9 +1,10 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
 import java.time.Instant;
-
+@ToString
 @Entity
 @Table(name = "inventory")
 public class Inventory {

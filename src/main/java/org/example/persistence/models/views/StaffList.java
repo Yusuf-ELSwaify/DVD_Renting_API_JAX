@@ -1,17 +1,19 @@
 package org.example.persistence.models.views;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
 /**
  * Mapping for DB view
  */
+@ToString
 @Entity
 @Immutable
 @Table(name = "staff_list")
 public class StaffList {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", columnDefinition = "tinyint UNSIGNED not null")
 	private Short id;
 
