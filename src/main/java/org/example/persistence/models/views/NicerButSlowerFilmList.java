@@ -1,6 +1,7 @@
 package org.example.persistence.models.views;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 /**
  * Mapping for DB view
  */
+@Getter
 @ToString
 @Entity
 @Immutable
@@ -42,38 +44,6 @@ public class NicerButSlowerFilmList {
 	@Lob
 	@Column(name = "actors")
 	private String actors;
-
-	public Integer getFid() {
-		return fid;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public Integer getLength() {
-		return length;
-	}
-
-	public String getRating() {
-		return rating;
-	}
-
-	public String getActors() {
-		return actors;
-	}
 
 	protected NicerButSlowerFilmList() {
 	}

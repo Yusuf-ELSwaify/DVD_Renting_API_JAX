@@ -1,12 +1,14 @@
 package org.example.persistence.models.views;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
 /**
  * Mapping for DB view
  */
+@Getter
 @ToString
 @Entity
 @Immutable
@@ -26,22 +28,6 @@ public class ActorInfo {
 	@Lob
 	@Column(name = "film_info")
 	private String filmInfo;
-
-	public Integer getActorId() {
-		return actorId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public String getFilmInfo() {
-		return filmInfo;
-	}
 
 	protected ActorInfo() {
 	}

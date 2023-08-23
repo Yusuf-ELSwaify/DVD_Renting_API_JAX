@@ -1,14 +1,28 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
+@Setter
+@Getter
 @ToString
 @Entity
 @Table(name = "film_text")
-public class FilmText {
+public class FilmText implements Model {
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	Film film;
+
+	@GenericGenerator(name = "filmTextIdGenerator",
+			strategy = "foreign",
+			parameters = @Parameter(name = "property", value = "film"))
 	@Id
-	@Column(name = "film_id", nullable = false)
+	@GeneratedValue(generator = "filmTextIdGenerator")
+	@Column(name = "film_id", unique = true, nullable = false)
 	private Short id;
 
 	@Column(name = "title", nullable = false)
@@ -17,29 +31,5 @@ public class FilmText {
 	@Lob
 	@Column(name = "description")
 	private String description;
-
-	public Short getId() {
-		return id;
-	}
-
-	public void setId(Short id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 }

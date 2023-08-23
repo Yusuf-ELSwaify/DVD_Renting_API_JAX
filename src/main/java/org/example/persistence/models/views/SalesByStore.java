@@ -1,6 +1,7 @@
 package org.example.persistence.models.views;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 /**
  * Mapping for DB view
  */
+@Getter
 @ToString
 @Entity
 @Immutable
@@ -24,18 +26,6 @@ public class SalesByStore {
 
 	@Column(name = "total_sales", precision = 27, scale = 2)
 	private BigDecimal totalSales;
-
-	public String getStore() {
-		return store;
-	}
-
-	public String getManager() {
-		return manager;
-	}
-
-	public BigDecimal getTotalSales() {
-		return totalSales;
-	}
 
 	protected SalesByStore() {
 	}

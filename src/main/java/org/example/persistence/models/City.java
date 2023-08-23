@@ -1,13 +1,17 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+@Setter
+@Getter
 @ToString
 @Entity
 @Table(name = "city")
-public class City {
+public class City implements Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "city_id", columnDefinition = "smallint UNSIGNED not null")
@@ -16,43 +20,11 @@ public class City {
 	@Column(name = "city", nullable = false, length = 50)
 	private String city;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "country_id", nullable = false)
 	private Country country;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
-	public Instant getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Instant lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	private Instant lastUpdate = Instant.now();
 
 }

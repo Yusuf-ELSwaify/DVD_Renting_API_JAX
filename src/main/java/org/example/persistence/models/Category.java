@@ -1,16 +1,20 @@
 package org.example.persistence.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Setter
+@Getter
 @ToString
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements Model {
 	@Id
 	@Column(name = "category_id", columnDefinition = "tinyint UNSIGNED not null")
 	private Short id;
@@ -19,30 +23,13 @@ public class Category {
 	private String name;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate;
+	private Instant lastUpdate = Instant.now();
 
-	public Short getId() {
-		return id;
-	}
-
-	public void setId(Short id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Instant getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Instant lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	@ManyToMany
+	@JoinTable(name = "film_category",
+			joinColumns = @JoinColumn(name = "category_id"),
+			inverseJoinColumns = @JoinColumn(name = "film_id"))
+	@ToString.Exclude
+	private Set<Film> films = new LinkedHashSet<>();
 
 }

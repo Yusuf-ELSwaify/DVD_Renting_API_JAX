@@ -1,19 +1,26 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Setter
+@Getter
 @ToString
 @Entity
 @Table(name = "customer")
-public class Customer {
+public class Customer implements Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id", columnDefinition = "smallint UNSIGNED not null")
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "store_id", nullable = false)
 	private Store store;
 
@@ -26,7 +33,7 @@ public class Customer {
 	@Column(name = "email", length = 50)
 	private String email;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "address_id", nullable = false)
 	private Address address;
 
@@ -34,81 +41,15 @@ public class Customer {
 	private Boolean active = false;
 
 	@Column(name = "create_date", nullable = false)
-	private Instant createDate;
+	private Instant createDate = Instant.now();
 
 	@Column(name = "last_update")
-	private Instant lastUpdate;
+	private Instant lastUpdate = Instant.now();
 
-	public Integer getId() {
-		return id;
-	}
+	@OneToMany(mappedBy = "customer")
+	private Set<Payment> payments = new LinkedHashSet<>();
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Store getStore() {
-		return store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-
-	public Instant getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Instant createDate) {
-		this.createDate = createDate;
-	}
-
-	public Instant getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Instant lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	@OneToMany(mappedBy = "customer")
+	private Set<Rental> rentals = new LinkedHashSet<>();
 
 }

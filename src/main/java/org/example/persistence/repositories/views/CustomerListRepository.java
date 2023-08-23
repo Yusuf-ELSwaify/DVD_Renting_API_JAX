@@ -4,7 +4,8 @@ import org.example.persistence.models.views.CustomerList;
 import org.example.persistence.repositories.ReadRepository;
 
 public class CustomerListRepository extends ReadRepository<CustomerList, Integer> {
-	public CustomerListRepository() {
+	public static final CustomerListRepository INSTANCE = new CustomerListRepository();
+	private CustomerListRepository() {
 		super(CustomerList.class);
 	}
 }

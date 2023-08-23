@@ -1,58 +1,52 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Setter
+@Getter
 @ToString
 @Entity
 @Table(name = "store")
-public class Store {
+public class Store implements Model {
 	@Id
 	@Column(name = "store_id", columnDefinition = "tinyint UNSIGNED not null")
 	private Short id;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@OneToOne(optional = false)
 	@JoinColumn(name = "manager_staff_id", nullable = false)
 	private Staff managerStaff;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "address_id", nullable = false)
 	private Address address;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate;
+	private Instant lastUpdate = Instant.now();
 
-	public Short getId() {
-		return id;
-	}
+	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	@ToString.Exclude
+	private Set<Customer> customers = new LinkedHashSet<>();
 
-	public void setId(Short id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	@ToString.Exclude
+	private Set<Inventory> inventories = new LinkedHashSet<>();
 
-	public Staff getManagerStaff() {
-		return managerStaff;
-	}
+	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	@ToString.Exclude
+	private Set<Staff> staff = new LinkedHashSet<>();
 
-	public void setManagerStaff(Staff managerStaff) {
-		this.managerStaff = managerStaff;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Instant getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Instant lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	@ManyToMany
+	@JoinTable(name = "inventory", catalog = "sakila",
+			joinColumns = @JoinColumn(name = "store_id"),
+			inverseJoinColumns = @JoinColumn(name = "film_id"))
+	@ToString.Exclude
+	private Set<Film> films = new LinkedHashSet();
 
 }

@@ -4,7 +4,8 @@ import org.example.persistence.models.views.FilmList;
 import org.example.persistence.repositories.ReadRepository;
 
 public class FilmListRepository extends ReadRepository<FilmList, Integer> {
-	public FilmListRepository() {
+	public static final FilmListRepository INSTANCE = new FilmListRepository();
+	private FilmListRepository() {
 		super(FilmList.class);
 	}
 }

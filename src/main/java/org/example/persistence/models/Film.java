@@ -1,15 +1,21 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+@Getter
+@Setter
 @ToString
 @Entity
 @Table(name = "film")
-public class Film {
+public class Film implements Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "film_id", columnDefinition = "smallint UNSIGNED not null")
@@ -25,11 +31,11 @@ public class Film {
 	@Column(name = "release_year")
 	private Integer releaseYear;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "language_id", nullable = false)
 	private Language language;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "original_language_id")
 	private Language originalLanguage;
 
@@ -54,110 +60,25 @@ public class Film {
 	private String specialFeatures;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate;
+	private Instant lastUpdate = Instant.now();
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@ManyToMany
+	@JoinTable(name = "film_actor",
+			joinColumns = @JoinColumn(name = "film_id"),
+			inverseJoinColumns = @JoinColumn(name = "actor_id"))
+	@ToString.Exclude
+	private Set<Actor> actors = new LinkedHashSet();
 
-	public String getTitle() {
-		return title;
-	}
+	@ManyToMany
+	@JoinTable(name = "film_category",
+			joinColumns = @JoinColumn(name = "film_id"),
+			inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@ToString.Exclude
+	private Set<Category> categories = new LinkedHashSet<>();
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Integer getReleaseYear() {
-		return releaseYear;
-	}
-
-	public void setReleaseYear(Integer releaseYear) {
-		this.releaseYear = releaseYear;
-	}
-
-	public Language getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(Language language) {
-		this.language = language;
-	}
-
-	public Language getOriginalLanguage() {
-		return originalLanguage;
-	}
-
-	public void setOriginalLanguage(Language originalLanguage) {
-		this.originalLanguage = originalLanguage;
-	}
-
-	public Short getRentalDuration() {
-		return rentalDuration;
-	}
-
-	public void setRentalDuration(Short rentalDuration) {
-		this.rentalDuration = rentalDuration;
-	}
-
-	public BigDecimal getRentalRate() {
-		return rentalRate;
-	}
-
-	public void setRentalRate(BigDecimal rentalRate) {
-		this.rentalRate = rentalRate;
-	}
-
-	public Integer getLength() {
-		return length;
-	}
-
-	public void setLength(Integer length) {
-		this.length = length;
-	}
-
-	public BigDecimal getReplacementCost() {
-		return replacementCost;
-	}
-
-	public void setReplacementCost(BigDecimal replacementCost) {
-		this.replacementCost = replacementCost;
-	}
-
-	public String getRating() {
-		return rating;
-	}
-
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
-
-	public String getSpecialFeatures() {
-		return specialFeatures;
-	}
-
-	public void setSpecialFeatures(String specialFeatures) {
-		this.specialFeatures = specialFeatures;
-	}
-
-	public Instant getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Instant lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	@OneToMany(mappedBy = "film")
+	@ToString.Exclude
+	private Set<Inventory> inventories = new LinkedHashSet<>();
 
 }

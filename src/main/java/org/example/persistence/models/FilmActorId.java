@@ -2,11 +2,15 @@ package org.example.persistence.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.Objects;
+@Setter
+@Getter
 @ToString
 @Embeddable
 public class FilmActorId implements Serializable {
@@ -16,22 +20,6 @@ public class FilmActorId implements Serializable {
 
 	@Column(name = "film_id", columnDefinition = "smallint UNSIGNED not null")
 	private Integer filmId;
-
-	public Integer getActorId() {
-		return actorId;
-	}
-
-	public void setActorId(Integer actorId) {
-		this.actorId = actorId;
-	}
-
-	public Integer getFilmId() {
-		return filmId;
-	}
-
-	public void setFilmId(Integer filmId) {
-		this.filmId = filmId;
-	}
 
 	@Override
 	public boolean equals(Object o) {

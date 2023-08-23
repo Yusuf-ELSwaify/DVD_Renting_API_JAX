@@ -1,9 +1,13 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+@Setter
+@Getter
 @ToString
 @Entity
 @Table(name = "film_actor")
@@ -12,48 +16,16 @@ public class FilmActor {
 	private FilmActorId id;
 
 	@MapsId("actorId")
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "actor_id", nullable = false)
 	private Actor actor;
 
 	@MapsId("filmId")
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "film_id", nullable = false)
 	private Film film;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate;
-
-	public FilmActorId getId() {
-		return id;
-	}
-
-	public void setId(FilmActorId id) {
-		this.id = id;
-	}
-
-	public Actor getActor() {
-		return actor;
-	}
-
-	public void setActor(Actor actor) {
-		this.actor = actor;
-	}
-
-	public Film getFilm() {
-		return film;
-	}
-
-	public void setFilm(Film film) {
-		this.film = film;
-	}
-
-	public Instant getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Instant lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	private Instant lastUpdate = Instant.now();
 
 }

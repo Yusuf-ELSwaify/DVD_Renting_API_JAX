@@ -4,7 +4,8 @@ import org.example.persistence.models.views.SalesByFilmCategory;
 import org.example.persistence.repositories.ReadRepository;
 
 public class SalesByFilmCategoryRepository extends ReadRepository<SalesByFilmCategory, String> {
-	public SalesByFilmCategoryRepository() {
+	public static final SalesByFilmCategoryRepository INSTANCE = new SalesByFilmCategoryRepository();
+	private SalesByFilmCategoryRepository() {
 		super(SalesByFilmCategory.class);
 	}
 }

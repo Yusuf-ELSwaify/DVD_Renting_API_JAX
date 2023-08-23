@@ -1,12 +1,14 @@
 package org.example.persistence.models.views;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
 /**
  * Mapping for DB view
  */
+@Getter
 @ToString
 @Entity
 @Immutable
@@ -40,42 +42,6 @@ public class CustomerList {
 
 	@Column(name = "SID", columnDefinition = "tinyint UNSIGNED not null")
 	private Short sid;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public String getNotes() {
-		return notes;
-	}
-
-	public Short getSid() {
-		return sid;
-	}
 
 	protected CustomerList() {
 	}

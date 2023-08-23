@@ -1,13 +1,20 @@
 package org.example.persistence.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Setter
+@Getter
 @ToString
 @Entity
 @Table(name = "actor")
-public class Actor {
+public class Actor implements Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "actor_id", columnDefinition = "smallint UNSIGNED not null")
@@ -20,38 +27,9 @@ public class Actor {
 	private String lastName;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Instant getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Instant lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	private Instant lastUpdate = Instant.now();
+	@ManyToMany(mappedBy = "actors")
+	@ToString.Exclude
+	private Set<Film> films = new LinkedHashSet();
 
 }
