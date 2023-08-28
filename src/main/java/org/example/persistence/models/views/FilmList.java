@@ -1,6 +1,8 @@
 package org.example.persistence.models.views;
 
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
 /**
  * Mapping for DB view
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @ToString
 @Entity

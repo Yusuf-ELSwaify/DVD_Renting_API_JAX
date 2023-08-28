@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -41,15 +42,17 @@ public class Customer implements Model {
 	private Boolean active = false;
 
 	@Column(name = "create_date", nullable = false)
-	private Instant createDate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate = Date.from(Instant.now());
 
 	@Column(name = "last_update")
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer", orphanRemoval = true)
 	private Set<Payment> payments = new LinkedHashSet<>();
 
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer", orphanRemoval = true)
 	private Set<Rental> rentals = new LinkedHashSet<>();
 
 }

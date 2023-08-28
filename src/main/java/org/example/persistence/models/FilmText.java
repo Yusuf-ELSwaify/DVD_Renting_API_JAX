@@ -13,15 +13,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "film_text")
 public class FilmText implements Model {
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	Film film;
-
-	@GenericGenerator(name = "filmTextIdGenerator",
-			strategy = "foreign",
-			parameters = @Parameter(name = "property", value = "film"))
 	@Id
-	@GeneratedValue(generator = "filmTextIdGenerator")
 	@Column(name = "film_id", unique = true, nullable = false)
 	private Short id;
 

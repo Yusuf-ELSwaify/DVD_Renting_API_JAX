@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -27,7 +28,8 @@ public class Actor implements Model {
 	private String lastName;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 	@ManyToMany(mappedBy = "actors")
 	@ToString.Exclude
 	private Set<Film> films = new LinkedHashSet();

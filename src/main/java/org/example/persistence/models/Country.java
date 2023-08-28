@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 @Setter
 @Getter
 @ToString
@@ -21,6 +22,7 @@ public class Country implements Model {
 	private String country;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
 }

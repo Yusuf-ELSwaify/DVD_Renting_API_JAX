@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 @Setter
 @Getter
 @ToString
@@ -13,6 +14,7 @@ import java.time.Instant;
 @Table(name = "staff")
 public class Staff implements Model {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "staff_id", columnDefinition = "tinyint UNSIGNED not null")
 	private Short id;
 
@@ -25,7 +27,7 @@ public class Staff implements Model {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "address_id", nullable = false)
 	private Address address;
-
+	@Lob
 	@Column(name = "picture")
 	private byte[] picture;
 
@@ -46,6 +48,7 @@ public class Staff implements Model {
 	private String password;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
 }

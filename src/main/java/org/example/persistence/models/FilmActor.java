@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 @Setter
 @Getter
 @ToString
@@ -26,6 +27,6 @@ public class FilmActor {
 	private Film film;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	private Date lastUpdate = Date.from(Instant.now());
 
 }

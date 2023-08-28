@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 @Setter
 @Getter
 @ToString
@@ -18,7 +19,8 @@ public class Rental implements Model {
 	private Integer id;
 
 	@Column(name = "rental_date", nullable = false)
-	private Instant rentalDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date rentalDate;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "inventory_id", nullable = false)
@@ -29,13 +31,15 @@ public class Rental implements Model {
 	private Customer customer;
 
 	@Column(name = "return_date")
-	private Instant returnDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date returnDate;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "staff_id", nullable = false)
 	private Staff staff;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
 }

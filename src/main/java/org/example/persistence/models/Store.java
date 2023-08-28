@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @Table(name = "store")
 public class Store implements Model {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "store_id", columnDefinition = "tinyint UNSIGNED not null")
 	private Short id;
 
@@ -28,17 +30,18 @@ public class Store implements Model {
 	private Address address;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
-	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "store", orphanRemoval = true)
 	@ToString.Exclude
 	private Set<Customer> customers = new LinkedHashSet<>();
 
-	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "store", orphanRemoval = true)
 	@ToString.Exclude
 	private Set<Inventory> inventories = new LinkedHashSet<>();
 
-	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "store", orphanRemoval = true)
 	@ToString.Exclude
 	private Set<Staff> staff = new LinkedHashSet<>();
 

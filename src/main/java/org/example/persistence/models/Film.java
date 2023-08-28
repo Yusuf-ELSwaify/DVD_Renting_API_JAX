@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -31,11 +32,11 @@ public class Film implements Model {
 	@Column(name = "release_year")
 	private Integer releaseYear;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "language_id", nullable = false)
 	private Language language;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "original_language_id")
 	private Language originalLanguage;
 
@@ -60,7 +61,8 @@ public class Film implements Model {
 	private String specialFeatures;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
 
 	@ManyToMany
@@ -77,7 +79,7 @@ public class Film implements Model {
 	@ToString.Exclude
 	private Set<Category> categories = new LinkedHashSet<>();
 
-	@OneToMany(mappedBy = "film")
+	@OneToMany(mappedBy = "film", orphanRemoval = true)
 	@ToString.Exclude
 	private Set<Inventory> inventories = new LinkedHashSet<>();
 

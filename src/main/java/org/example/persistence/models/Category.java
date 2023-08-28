@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @Table(name = "category")
 public class Category implements Model {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "category_id", columnDefinition = "tinyint UNSIGNED not null")
 	private Short id;
 
@@ -23,7 +25,8 @@ public class Category implements Model {
 	private String name;
 
 	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
 	@ManyToMany
 	@JoinTable(name = "film_category",

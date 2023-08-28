@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.Date;
 @Setter
 @Getter
 @ToString
@@ -13,6 +14,7 @@ import java.time.Instant;
 @Table(name = "address")
 public class Address implements Model {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id", columnDefinition = "smallint UNSIGNED not null")
 	private Integer id;
 
@@ -35,13 +37,13 @@ public class Address implements Model {
 	@Column(name = "phone", nullable = false, length = 20)
 	private String phone;
 
-	@Column(name = "last_update", nullable = false)
-	private Instant lastUpdate = Instant.now();
+	@Lob
+	@Column(name = "location", columnDefinition = "geometry(0, 0) not null")
+	private byte[] location = new byte[]{0, 0, 0, 0, 1, 1, 0, 0, 0, 62, 10, 50, 93, 99, 52, 92, -64, 118, 31, -37, -115, -103, -39, 72, 64};
 
-	/*
-    TODO [JPA Buddy] create field to map the 'location' column
-     Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "location", columnDefinition = "geometry(0, 0) not null")
-    private Object location;
-*/
+	@Column(name = "last_update", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
+
+
 }

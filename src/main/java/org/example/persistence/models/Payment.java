@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Date;
 @Setter
 @Getter
 @ToString
@@ -34,9 +35,11 @@ public class Payment implements Model {
 	private BigDecimal amount;
 
 	@Column(name = "payment_date", nullable = false)
-	private Instant paymentDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date paymentDate;
 
 	@Column(name = "last_update")
-	private Instant lastUpdate = Instant.now();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate = Date.from(Instant.now());
 
 }

@@ -1,14 +1,16 @@
 package org.example;
 
+import org.example.business.dtos.actor.ActorWithFilmsDto;
+import org.example.business.dtos.film.FilmAddDto;
+import org.example.business.dtos.film.FilmDto;
+import org.example.business.dtos.language.LanguageDto;
+import org.example.business.services.*;
 import org.example.persistence.configurations.JpaManager;
-import org.example.persistence.models.views.ActorInfo;
-import org.example.persistence.models.views.CustomerList;
-import org.example.persistence.models.views.FilmList;
-import org.example.services.*;
-import org.example.services.dtos.actor.ActorWithCategoriesDto;
-import org.example.services.dtos.customer.CustomerWithRentedFilmsDto;
-import org.example.services.dtos.film.FilmWithRentals;
-import org.example.services.dtos.store.StoreWithFilmsDto;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -68,7 +70,29 @@ public class App
         System.out.println(filmList);*/
 //        System.out.println(StoreService.INSTANCE.getSalesByStore("Woodridge,Australia"));
 //        System.out.println(CategoryService.INSTANCE.getCategoryWithFilms((short) 1));
-        System.out.println(CategoryService.INSTANCE.getAllSalesByFilmCategory());
+//        System.out.println(CategoryService.INSTANCE.getAllSalesByFilmCategory());
+ /*       FilmService filmService = FilmService.INSTANCE;
+        LanguageDto z = new LanguageDto();
+        z.setId((short) 1);
+        z.setName("yuu");
+        z.setLastUpdate(Instant.now());
+        LanguageDto x = new LanguageDto();
+        x.setId((short) 1);
+        FilmDto insert = filmService.insert(new FilmAddDto("a",
+                "a",
+                2000,
+                z, x, (short) 1,
+                new BigDecimal(1),
+                10, new BigDecimal(10),
+                "G", "Trailers,Deleted Scenes"));
+        System.out.println(insert);*/
+/*        List<FilmDto> list = FilmService.INSTANCE.getList(1, 10);
+        System.out.println(list);*/
+        //System.out.println(ActorService.INSTANCE.get(1));
+//        System.out.println(Arrays.toString(AddressService.INSTANCE.get(1).getLocation()));
+//        System.out.println(StoreService.INSTANCE.getStoreWithCustomers((short) 1));
+
+        System.out.println(LanguageService.INSTANCE.getLanguageWithFilms((short) 1));
         JpaManager.close();
     }
 }
